@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xrm.Sdk;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace GraphPlugin.Interface
 {
     public interface IAzureADService
     {
-        AccessResponse GetAccessToken();
+        AccessResponse GetAccessToken(IOrganizationService service);
     }
 }

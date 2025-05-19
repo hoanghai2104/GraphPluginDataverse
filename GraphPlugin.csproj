@@ -131,10 +131,13 @@
   <ItemGroup>
     <Compile Include="Helper\ServiceProviderConfig.cs" />
     <Compile Include="Implement\AzureADCredentialImplement.cs" />
+    <Compile Include="Implement\DOCAttributeValueSetImplement.cs" />
     <Compile Include="Implement\SharepointItemsImplement.cs" />
     <Compile Include="Interface\IAzureADCredentialImplement.cs" />
+    <Compile Include="Interface\IDOCAttributeValueSetImplement.cs" />
     <Compile Include="Interface\IGraphAPIService.cs" />
     <Compile Include="Interface\ISharepointItemsImplement.cs" />
+    <Compile Include="Model\DataverseEntity.cs" />
     <Compile Include="Model\SharepointModel.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Service\AzureADService.cs" />

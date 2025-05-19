@@ -10,5 +10,6 @@ namespace GraphPlugin.Interface
     public interface IGraphAPIService
     {
         void GetItems(string endpoint, string accessToken, ref List<Item> items);
+        UserInformation GetUserInformation(Guid azureADObjectId, string internalemail, string accessToken);
     }
 }

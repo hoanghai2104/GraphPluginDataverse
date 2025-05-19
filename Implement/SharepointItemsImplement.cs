@@ -5,9 +5,7 @@ using GraphPlugin.Service;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 using static GraphPlugin.Model.SharepointModel;
 
 namespace GraphPlugin.Implement
@@ -32,13 +30,24 @@ namespace GraphPlugin.Implement
         public void Execute(IServiceProvider serviceProvider)
         {
             ServiceProviderConfig.ConfigureServices(serviceProvider, out _tracingService, out _service, out _context);
-            var aad = _azureService.GetAccessToken();
+
+            var aad = _azureService.GetAccessToken(_service);
             if (!aad.is_succeed)
                 throw new InvalidPluginExecutionException(aad.message);
 
+            string filter = _context.InputParameters["nwv_filter"].ToString();
+            string userInfoId = _context.InputParameters["nwv_userinfoid"].ToString();
+
+            if (string.IsNullOrEmpty(filter))
+                throw new InvalidPluginExecutionException("Filter must be added to get items in Sharepoint List.");
+
+            filter += $" and fields/Author0LookupId eq '{userInfoId}'";
+
             var items = new List<Item>();
-            string endpoint = SharepointEnv.PAPERLESS_ITEMS_ENDPOINT + "&$filter=fields/ContentType ne 'Folder'";
-            _graphAPIService.GetItems(endpoint, aad.access_token, ref items);
+            _graphAPIService.GetItems(SharepointEnv.PAPERLESS_ITEMS_ENDPOINT + "&" + filter, aad.access_token, ref items);
+
+            //Response
+            _context.OutputParameters["nwv_items"] = JsonSerializer.Serialize(items);
         }
     }
 }

@@ -17,5 +17,6 @@ namespace GraphPlugin.Model
         public static string DRAFT_DRIVE_ENDPOINT => $"{graphUrl}/drives/{paperlessDriveId}/root:/{draftDriveName}/";
         public static string PAPERLESS_DRIVE_ENDPOINT => $"{graphUrl}/drives/{paperlessDriveId}/root:/";
         public static string PAPERLESS_ITEMS_ENDPOINT => $"{graphUrl}/sites/{siteId}/lists/{paperlessListId}/items?expand=fields(select=*,FileRef,FileDirRef)";
+        public static string USER_INFO_ENDPOINT => $"{graphUrl}/sites/{siteId}/lists/User Information List/items";
     }
 }

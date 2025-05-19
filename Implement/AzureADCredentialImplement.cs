@@ -3,10 +3,6 @@ using GraphPlugin.Interface;
 using GraphPlugin.Model;
 using Microsoft.Xrm.Sdk;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphPlugin.Implement
 {
@@ -28,7 +24,7 @@ namespace GraphPlugin.Implement
         {
             ServiceProviderConfig.ConfigureServices(serviceProvider, out _tracingService, out _service, out _context);
 
-            var aad = _azureService.GetAccessToken();
+            var aad = _azureService.GetAccessToken(_service);
             _context.OutputParameters["nwv_isSucceed"] = aad.is_succeed;
 
             if (!aad.is_succeed)

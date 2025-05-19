@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -96,6 +97,42 @@ namespace GraphPlugin.Model
         {
             public DateTime createdDateTime { get; set; }
             public DateTime lastModifiedDateTime { get; set; }
+        }
+
+
+        public class UserInformationResponse
+        {
+            [JsonPropertyName("@odata.context")]
+            public string odataContext { get; set; }
+
+            [JsonPropertyName("@odata.nextLink")]
+            public string odataNextLink { get; set; }
+            public List<UserInformation> value { get; set; }
+        }
+
+        public class UserInformation
+        {
+            public string id { get; set; }
+            public CreatedBy createdBy { get; set; }
+            public Fields fields { get; set; }
+
+            public class CreatedBy
+            {
+                public User user { get; set; }
+                public class User
+                {
+                    public string email { get; set; }
+                    public string id { get; set; }//AzureAD Object ID
+                    public string displayName { get; set; }
+                }
+            }
+            public class Fields
+            {
+                public string Title { get; set; }
+                public string EMail { get; set; }
+                public string UserName { get; set; }
+                public bool Deleted { get; set; }
+            }
         }
     }
 

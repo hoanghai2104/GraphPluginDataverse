@@ -16,5 +16,12 @@ namespace GraphPlugin.Helper
             context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             service = serviceFactory.CreateOrganizationService(context.UserId);
         }
+
+        public static void ConfigureServices(IServiceProvider serviceProvider, out IOrganizationService service, out IPluginExecutionContext context)
+        {
+            IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+            context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+            service = serviceFactory.CreateOrganizationService(context.UserId);
+        }
     }
 }
